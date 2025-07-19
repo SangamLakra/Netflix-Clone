@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  netflix-clone:
+    image: netflix-stream-app:latest
+    container_name: netflix-clone
+    ports:
+      - "8080:80"
+    restart: always
+
