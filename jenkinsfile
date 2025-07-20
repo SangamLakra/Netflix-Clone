@@ -2,13 +2,6 @@
 pipeline{
     agent { label "agent"}
     stages{
-        stage("shared-lib"){
-            steps{
-                script{
-                    jenkins()
-                }
-            }
-        }
         stage("Cloning"){
             steps{
                 script {
