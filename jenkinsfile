@@ -1,0 +1,39 @@
+@Library("shared") _
+pipeline{
+    agent { label "agent"}
+    stages{
+        stage("shared-lib"){
+            steps{
+                script{
+                    jenkins()
+                }
+            }
+        }
+        stage("Cloning"){
+            steps{
+                script {
+                    clone("https://github.com/SangamLakra/Netflix-Clone.git" , "main")
+                }
+            }
+        }
+        stage("Building"){
+            steps{
+                script {
+                    docker_build("netflix-stream-app:latest")
+                }
+            }
+        }
+         stage("Push") {
+            steps{
+                script {
+                    docker_push('netflix-stream-app:latest', 'DockerHubCred')
+                }
+            }
+         }
+        stage("Deploy"){
+            steps{
+                sh "docker-compose up -d"
+            }
+        }
+    }
+}
